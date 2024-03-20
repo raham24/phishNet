@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      min-width: 300px;
+      overflow-x: hidden;
+      background-color: #000;
+      color: white;
+      font-family: sans-serif;
+      padding: 15px;
+    }
+    #toggleSwitch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+      background-color: #ccc;
+      border-radius: 34px;
+      margin-top: 16px;
+    }
+    #toggleSwitch::after {
+      content: '';
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+    #toggleSwitch.checked {
+      background-color: #2196F3;
+    }
+    #toggleSwitch.checked::after {
+      left: calc(100% - 30px);
+    }
+  </style>
+</head>
+<body>
+  <h1>PhishNet</h1>
+  <button id="statsButton">STATS ></button>
+  <div id="toggleSwitch"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
