@@ -1,3 +1,5 @@
 
+*.csv
+dec_tree
+dataset
 yes.py
-no.py
