@@ -8,9 +8,9 @@ def insert_attempts(conn):
 
         # Sample test data for Phishing Attempts table
         attempts_data = [
-            (strftime("%Y-%m-%d %H:%M:%S", gmtime()), 'http://phishing-site.com', True, 5),
-            (strftime("%Y-%m-%d %H:%M:%S", gmtime()), 'http://phishing-site2.com', False, 6),
-            (strftime("%Y-%m-%d %H:%M:%S", gmtime()), 'http://phishing-site3.com', True, 7)
+            (strftime("%Y-%m-%d %H:%M:%S", gmtime()), 'http://phishing-site.com', 1, 5),
+            (strftime("%Y-%m-%d %H:%M:%S", gmtime()), 'http://phishing-site2.com', -1, 6),
+            (strftime("%Y-%m-%d %H:%M:%S", gmtime()), 'http://phishing-site3.com', 0, 7)
         ]
 
         # SQL query to insert test data into Phishing Attempts table
