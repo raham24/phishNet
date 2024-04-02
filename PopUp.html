@@ -12,12 +12,12 @@
     }
     #toggleSwitch {
       position: relative;
-      display: inline-block;
+      display: block;
       width: 60px;
       height: 34px;
       background-color: #ccc;
       border-radius: 34px;
-      margin-top: 16px;
+      margin: 0 auto; /* Center the toggle button horizontally */
     }
     #toggleSwitch::after {
       content: '';
@@ -36,6 +36,16 @@
     #toggleSwitch.checked::after {
       left: calc(100% - 30px);
     }
+    .placeholder-box {
+      background-color: #444;
+      color: white;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+    h1 {
+      text-align: center; /* Center the PhishNet title */
+    }
   </style>
 </head>
 <body>
@@ -43,6 +53,32 @@
   <button id="statsButton">STATS ></button>
   <div id="toggleSwitch"></div>
 
+  <!-- Placeholder box for selecting settings -->
+  <div class="placeholder-box" id="settingsBox">
+    <h2>Settings</h2>
+    <!-- Add your settings options here -->
+    <button id="settingsButton">Placeholder Settings Button</button>
+  </div>
+
+  <!-- Placeholder box for finding more resources -->
+  <div class="placeholder-box" id="resourcesBox">
+    <h2>More Resources</h2>
+    <!-- Add your link to more resources here -->
+    <button id="resourcesButton">Placeholder Resources Button</button>
+  </div>
+
   <script src="script.js"></script>
+  <script>
+    // Add event listeners for the settings and resources buttons
+    document.getElementById('settingsButton').addEventListener('click', function() {
+      // Replace with your logic for handling settings button click
+      alert('Settings button clicked!');
+    });
+
+    document.getElementById('resourcesButton').addEventListener('click', function() {
+      // Replace with your logic for handling resources button click
+      alert('Resources button clicked!');
+    });
+  </script>
 </body>
 </html>
