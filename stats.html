@@ -1,70 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stats Page</title>
-<style>
-    body {
-        background-color: #000;
-        color: white;
-        font-family: Arial, sans-serif;
-        margin: 0; /* Make sure there's no default margin */
-        padding: 0; /* Make sure there's no default padding */
-    }
-    .container {
-        width: 95%; /* Increased width for a wider stats page */
-        max-width: none; /* Allowing full width for large screens */
-        margin: 0 auto; /* Centers the container */
-        padding: 20px; /* Adds some space inside the container */
-        box-sizing: border-box; /* Ensures padding doesn't affect the overall width */
-    }
-    .donut-chart {
-        height: 100px;
-        width: 100px;
-        border-radius: 50%;
-        background: conic-gradient(
-            blue 25%, 
-            lightblue 25% 50%, 
-            lightgrey 50% 75%, 
-            grey 75%
-        );
-        margin: 20px;
-    }
-    /* ... Other styles ... */
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishNet</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<div class="container">
-    <!-- All your page content goes here inside the container -->
-    
-    <div id="pageHeader">
-        <h1>PhishNet</h1>
-        <div style="text-align: right; padding: 10px;">
-            <button class="settings-btn">Settings</button>
-        </div>
-        <!-- Demographic donut chart -->
-        <div class="donut-chart"></div>
-        
-        <!-- More layout for time options like 'Days', 'Weeks', 'Months' -->
-        <div class="links-blocked">
-            <p>Links that have been blocked:</p>
-            <!-- List of blocked links -->
-        </div>
-        <!-- Navigation and other elements... -->
+    <div class="container">
+        <img id="logo" src="PhishNET.png" alt="Logo">
+        <p class="title">PhishNet</p>
+        <textarea id="url-list" readonly></textarea>
+        <button id="back-button">Back</button>
     </div>
-
-    <ul>
-        <li>Placeholder link</li>
-        <li>Placeholder link</li>
-        <li>Placeholder link</li>
-        <li>Placeholder link</li>
-        <li>Placeholder link</li>
-        <li>Placeholder link</li>
-    </ul>
-
-</div>
-
+  <script src="scripts/stats_scripts.js"></script>
 </body>
 </html>
