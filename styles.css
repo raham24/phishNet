@@ -1,0 +1,144 @@
+:root {
+    --primary-color: #2196F3;
+    --secondary-color: #ccc;
+    --background-color: rgb(17, 25, 35);
+    --text-color: white;
+    --box-bg-color: #444;
+    --protected-color: green;
+    --not-protected-color: red;
+}
+
+body {
+
+    min-width: 300px;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color) ;
+    font-family: Helvetica, sans-serif;
+}
+
+#logo {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 85px; 
+    height: 85px; 
+}
+
+#protection-button {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    background-color: var(--secondary-color);
+    border-radius: 34px;
+    margin: 0 10px;
+}
+
+#protection-button::after {
+    content: '';
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+#protection-button.checked {
+    background-color: var(--protected-color);
+}
+
+#protection-button.checked::after {
+    left: calc(100% - 30px);
+}
+
+.container {
+    text-align: center;
+}
+
+.title {
+    margin-top: 8px;
+    font-size: 19pt;
+}
+
+.controls {
+    margin-top: 20px;
+    margin-bottom: -30px;
+}
+
+.controls:first-child {
+    text-align: center;
+}
+
+.controls:last-child {
+    text-align: center;
+}
+
+.status {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px 0;
+    transition: background-color 0.2s;
+    position: center;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+}
+
+button:hover, a:hover {
+    background-color: #0079d3;
+}
+
+#protection-button {
+    color: var(--protected-color);
+}
+
+.controls {
+    margin-top: 2rem;
+}
+
+#pie-chart {
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
+}
+
+#url-list {
+    width: 90%;
+    height: 100px;
+    margin-top: 40px;
+    background-color: var(--box-bg-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+#back-button {
+    width: 100px;
+    height: 30px;
+    margin: 20px auto;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
