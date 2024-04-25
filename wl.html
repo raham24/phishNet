@@ -9,7 +9,12 @@
 <body>
     <div class="container">
         <img id="logo" src="PhishNET.png" alt="Logo">
-        <p class="title">PhishNet</p>
+        <p class="title-wl">Whitelisting</p>
+        <div>
+            <label for="whitelist-inp" id="whitelist-label">Add websites:</label>
+            <input type="text" id="whitelist-inp" name="whitelist-inp" required>
+            <button id="submit-button">Submit</button>
+          </div>
         <textarea id="url-list" readonly></textarea>
         <button id="back-button">Back</button>
     </div>

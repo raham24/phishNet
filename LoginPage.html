@@ -4,57 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      width: 300px;
-      margin: 100px auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    label {
-      font-weight: bold;
-    }
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      box-sizing: border-box;
-    }
-    .remember-me {
-      margin-bottom: 15px;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <div class="container">
-    <h2>Login</h2>
+<body id="body-login">
+  <div class="container-login">
+    <img id="logo" src="PhishNET.png" alt="Logo">
+    <p class="title-login">Login</p>
     <form id="loginForm">
       <div>
         <label for="username">Username:</label>
@@ -64,11 +19,10 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
       </div>
-      <div class="remember-me">
-        <input type="checkbox" id="rememberMe" name="rememberMe">
-        <label for="rememberMe">Remember Me</label>
-      </div>
-      <button type="button" id="loginButton">Login</button> <!-- Changed type to "button" -->
+      <div class="button-container">
+        <button type="button" id="button-login" class="button">Login</button>
+        <button type="button" id="button-signup" class="button">Signup</button>
+    </div>    
     </form>
   </div>
   <script src="scripts/login_script.js"></script>

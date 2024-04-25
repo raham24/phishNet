@@ -36,9 +36,12 @@ document.getElementById('stats-button').addEventListener('click', function() {
   window.location.href = 'stats.html';
 });
 
+document.getElementById('logout-button').addEventListener('click', function() {
+  window.location.href = 'LoginPage.html';
+});
+
 document.getElementById('whitelist-button').addEventListener('click', function() {
   window.location.href = 'wl.html';
-  createNotification("Test");
 });
 
 function createNotification(message) {

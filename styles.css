@@ -9,7 +9,6 @@
 }
 
 body {
-
     min-width: 300px;
     overflow-x: hidden;
     display: flex;
@@ -29,6 +28,14 @@ body {
     top: 10px;
     width: 85px; 
     height: 85px; 
+}
+
+#logo-popup {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 95px; 
+    height: 95px; 
 }
 
 #protection-button {
@@ -70,6 +77,13 @@ body {
     font-size: 19pt;
 }
 
+.title-wl {
+    text-align: center;
+    margin-top: 15px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+    font-size: 16pt;
+}
 .controls {
     margin-top: 20px;
     margin-bottom: -30px;
@@ -124,13 +138,41 @@ button:hover, a:hover {
 #url-list {
     width: 90%;
     height: 100px;
-    margin-top: 40px;
+    margin-top: 15px;
     background-color: var(--box-bg-color);
     color: var(--text-color);
     border: none;
     border-radius: 5px;
     resize: none;
 }
+#whitelist-inp {
+    width: 90%;
+    height: 35px;
+    margin-top: 5px;
+    background-color: var(--box-bg-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+#whitelist-label {
+    padding-left: 3px;
+}
+
+#submit-button {
+    width: 100px;
+    height: 30px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 
 #back-button {
     width: 100px;
@@ -142,3 +184,110 @@ button:hover, a:hover {
     border-radius: 5px;
     cursor: pointer;
 }
+
+
+
+.container-login {
+    width: 300px auto;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: space-between; /* This will add some space between the buttons */
+}
+
+#button-login, #button-signup {
+    width: 45%; /* Adjust as needed */
+    height: 30px; /* Adjust as needed */
+    font-size: 12px; /* Adjust as needed */
+    /* Rest of your CSS properties for button */
+}
+
+
+button-signup:hover {
+    background-color: #0056b3;
+}
+
+button-login:hover {
+    background-color: #0056b3;
+}
+
+
+.remember-me-login {
+    display: flex;
+    align-items: center;
+    
+    margin-bottom: 15px;
+}
+
+
+body-login {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background-color: var(--box-bg-color);
+    color: var(--text-color);
+}
+
+label {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 10pt; 
+}
+
+
+.title-login {
+    text-align: center;
+    margin-top: 15px;
+    padding-bottom: 25px;
+    font-size: 19pt;
+    padding-bottom: 10px;
+}
+
+#top-container {
+    position: relative;
+    width: 100%;
+    height: 50px; /* Adjust as needed */
+}
+
+#logout-button {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    /* Rest of your CSS properties for the button */
+}
+
+
+#logout-button:hover::after {
+    content: 'Click to logout';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    padding-top: 1px;
+    white-space: nowrap; /* This prevents the text from wrapping */
+    /* You can adjust the styles as needed */
+}
+

@@ -1,3 +1,3 @@
-document.getElementById('back-button').addEventListener('click', function() {
+document.getElementById('back-button-stats').addEventListener('click', function() {
     window.location.href = 'popup.html';
   });
