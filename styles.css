@@ -22,6 +22,20 @@ body {
     font-family: Helvetica, sans-serif;
 }
 
+#body-popup {
+    min-width: 300px;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color) ;
+    font-family: Helvetica, sans-serif;
+}
+
 #logo {
     position: absolute;
     left: 10px;
@@ -71,6 +85,7 @@ body {
 .container {
     text-align: center;
 }
+
 
 .title {
     margin-top: 8px;
@@ -187,6 +202,7 @@ button:hover, a:hover {
 
 
 
+
 .container-login {
     width: 300px auto;
     margin: 100px auto;
@@ -266,17 +282,26 @@ label {
 }
 
 #top-container {
-    position: relative;
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    height: 50px;
+    padding: 10px 0;
 }
 
-#logout-button {
-    position: absolute;
+#logout-button, #settings-button {
+    position: relative;
     top: 0px;
-    right: 10px;
+    width: 100px; /* adjust as needed */
+    height: 50px; /* adjust as needed */
+    font-size: 14px; /* adjust as needed */
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 20px;
 }
-
 
 #logout-button:hover::after {
     content: 'Click to logout';
@@ -284,6 +309,140 @@ label {
     left: 50%;
     top: 100%;
     transform: translateX(-50%);
-    padding-top: 1px;
+    padding-top: 5px;
     white-space: nowrap; 
 }
+
+#settings-button:hover::after {
+    content: 'Personalize';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    padding-top: 5px;
+    white-space: nowrap; 
+}
+
+
+.pie-chart-container {
+    padding-top: 80px;
+}
+
+#stat-list {
+    width: 90%;
+    height: 100px;
+    margin-top: 15px;
+    background-color: var(--box-bg-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+
+#back-button-stats {
+    width: 50%;
+    height: 30px;
+    margin: 20px auto;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.textarea-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.textarea-label {
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: -10px; /* Adjust this value to move the label up or down */
+}
+.stat-label {
+    position: absolute;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    color: var(--text-color);
+    padding-bottom: 20px;
+}
+
+.pie-chart-container {
+    padding-top: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#legend {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 13pt;
+    margin-left: -15px;
+}
+
+.title-stats {
+    text-align: center;
+    margin-top: 16px;
+    padding-top: 25px;
+    font-size: 16pt;
+}
+
+.title-popup {
+    text-align: center;
+    margin-top: 16px;
+
+    font-size: 16pt;
+}
+
+#not1-button, #not2-button, #not3-button  {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    background-color: var(--secondary-color);
+    border-radius: 34px;
+    margin: 0 10px;
+}
+
+#not1-button::after, #not2-button::after, #not3-button::after {
+    content: '';
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+#not1-button.checked, #not2-button.checked, #not3-button.checked {
+    background-color: var(--protected-color);
+}
+
+#not1-button.checked::after, #not2-button.checked::after, #not3-button.checked::after {
+    left: calc(100% - 30px);
+}
+
+
+.setting-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.setting1-text,.setting2-text,.setting3-text {
+    font-size: 14px;
+}
+

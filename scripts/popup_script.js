@@ -44,6 +44,10 @@ document.getElementById('whitelist-button').addEventListener('click', function()
   window.location.href = 'wl.html';
 });
 
+document.getElementById('settings-button').addEventListener('click', function() {
+  window.location.href = 'settings.html';
+});
+
 function createNotification(message) {
   let options = {
       type: "basic",

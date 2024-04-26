@@ -8,18 +8,26 @@
 </head>
 <body>
     <div class="container">
-        <p class="title" style="text-align: left; margin-top: 40px; margin-left: 20px;">PhishNet</p>
-        <div id="chart-and-list-container" style="display: flex; align-items: center; justify-content: space-between;">
-            <textarea id="url-list" readonly style="width: 45%; height: 300px;"></textarea>
-            <svg width="150" height="150" viewBox="0 0 32 32">
-                <circle r="16" cx="16" cy="16" style="fill:#000000;"></circle>
-                <path d="M16,16 L16,0 A16,16 0 0,1 31,16 Z" style="fill:blue;"></path>
-                <path d="M16,16 L31,16 A16,16 0 0,1 24,31 Z" style="fill:lightblue;"></path>
-                <path d="M16,16 L24,31 A16,16 0 0,1 16,32 Z" style="fill:lightgrey;"></path>
-                <path d="M16,16 L16,32 A16,16 0 0,1 0,16 Z" style="fill:grey;"></path>
-            </svg>
+        <img id="logo-popup" src="PhishNET.png" alt="Logo">
+        <p class="title-stats">Statistics</p>
+        <div class="result">
+            <div class="pie-chart-container">
+                <canvas id="pie-chart" class="animate-pie-chart" width="150" height="150"></canvas>
+                <div id="legend">
+                    <div>
+                        <span style="color:red;">■</span> Phishing
+                    </div>
+                    <div>
+                        <span style="color:green;">■</span> Safe
+                    </div>
+                </div>
+            </div>
         </div>
-        <button id="back-button-stats" style="position: absolute; right: 20px; top: 20px;">Back</button>
+        <div class="textarea-container">
+            <label for="stat-list" class="textarea-label">Recently visited websites</label>
+            <textarea id="stat-list" readonly></textarea>
+        </div>
+        <button id="back-button-stats">Back</button>
     </div>
   <script src="scripts/stats_scripts.js"></script>
 </body>
