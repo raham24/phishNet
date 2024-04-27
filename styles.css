@@ -175,19 +175,27 @@ button:hover, a:hover {
     padding-left: 3px;
 }
 
-#submit-button {
-    width: 100px;
-    height: 30px;
-    margin-top: 8px;
-    margin-bottom: 8px;
+#submit-button,#remove-button {
+    position: relative;
+    top: 0px;
+    width: 100px; 
+    height: 30px; 
+    font-size: 14px; 
     background-color: var(--primary-color);
     color: var(--text-color);
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 
+
+#submit-button:hover, #remove-button:hover {
+    background-color: #0079d3
+}
 
 #back-button {
     width: 100px;
@@ -200,7 +208,9 @@ button:hover, a:hover {
     cursor: pointer;
 }
 
-
+#back-button:hover {
+    background-color: #0079d3
+}
 
 
 .container-login {
@@ -272,6 +282,9 @@ label {
     font-size: 10pt; 
 }
 
+#username,#password {
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 .title-login {
     text-align: center;
@@ -291,16 +304,21 @@ label {
 #logout-button, #settings-button {
     position: relative;
     top: 0px;
-    width: 100px; /* adjust as needed */
-    height: 50px; /* adjust as needed */
-    font-size: 14px; /* adjust as needed */
+    width: 100px; 
+    height: 50px; 
+    font-size: 14px; 
     background-color: var(--primary-color);
     color: var(--text-color);
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s;
-    margin-right: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#logout-button:hover, #settings-button:hover {
+    background-color: #0079d3
 }
 
 #logout-button:hover::after {
@@ -339,6 +357,17 @@ label {
     resize: none;
 }
 
+#wl-list {
+    width: 90%;
+    height: 100px;
+    margin-top: 15px;
+    background-color: var(--box-bg-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
 
 #back-button-stats {
     width: 50%;
@@ -349,6 +378,10 @@ label {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#back-button-stats:hover {
+    background-color: #0079d3
 }
 
 .textarea-container {
@@ -365,6 +398,26 @@ label {
     text-align: center;
     margin-bottom: -10px; /* Adjust this value to move the label up or down */
 }
+
+.wl-inp {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 252px;
+    margin-bottom: 15px;
+}
+
+.wl-textarea-label {
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-left: 2px;
+}
+
+
 .stat-label {
     position: absolute;
     font-family: Helvetica, sans-serif;

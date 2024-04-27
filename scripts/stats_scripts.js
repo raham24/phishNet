@@ -4,6 +4,7 @@ document.getElementById('back-button-stats').addEventListener('click', function(
 
 document.addEventListener("DOMContentLoaded",showPieChart)
 
+
 let safe = 10;
 let phish = 1;
 

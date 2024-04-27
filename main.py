@@ -11,6 +11,7 @@ import parse
 from time import gmtime, strftime
 from flask import Flask, request
 from flask_cors import CORS
+from flask import jsonify
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
@@ -24,6 +25,38 @@ def predict():
         return {'error': 'No url provided'}, 400
     prediction = predtest(url)
     return {'prediction': prediction}
+
+@app.route('/test', methods=['POST'])
+def getwl():
+    print(request.data)
+    data = request.get_json()
+    user = data.get('user')
+    if user is None:
+        return {'error': 'No url provided'}, 400
+    return getwl(user)
+
+@app.route('/addwl', methods=['POST'])
+def addwl_route():
+    print(request.data)
+    data = request.get_json()
+    url = data.get('url')
+    user = data.get('user')
+    if user is None:
+        return {'error': 'No url provided'}, 400
+    return add_to_whitelist(user, url)
+
+@app.route('/rmwl', methods=['POST'])
+def rmwl_route():
+    print(request.data)
+    data = request.get_json()
+    url = data.get('url')
+    user = data.get('user')
+    if user is None:
+        return {'error': 'No url provided'}, 400
+    if not(rm_url(user, url)):
+        return jsonify("URL removed")
+    else:
+        return jsonify("Error removing URL")
 
 
 def pred(full_url, user):
@@ -93,6 +126,71 @@ def check(url, user, cursor):
     )
     return 0
 
+def check_if_exists(user,useful_url,cursor):
+    try:
+        cursor.execute(f"""
+                        SELECT NOT EXISTS(SELECT 1 FROM public."whiteList" WHERE user_id={user} AND whitelisted_url='{useful_url}' LIMIT 1)
+                        """)
+    except (Exception,Error) as error:
+        print(error)
+        return False
+    return cursor.fetchone()[0]
+
+def add_to_whitelist(user, url):
+    useful_url = get_useful_url(url)
+    conn = dbconnect()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("BEGIN;")
+        if (check_if_exists(user, useful_url, cursor)):
+            cursor.execute(f"""INSERT INTO "whiteList" (user_id, whitelisted_url)
+                            VALUES ({user}, '{useful_url}')
+                            """)
+    except (Exception,Error) as error:
+        print(error)
+        return False
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return useful_url
+
+def extract_strings(array_of_tuples):
+    return [element[0] for element in array_of_tuples if isinstance(element, tuple) and len(element) == 1][::-1]
+
+
+def getwl(user):
+    conn = dbconnect()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("BEGIN;")
+        cursor.execute(f"""SELECT whitelisted_url FROM public."whiteList" WHERE user_id={user}
+                        """)
+    except (Exception,Error) as error:
+        print(error)
+    result = cursor.fetchall()
+    cursor.close()
+    conn.close()  
+    print(extract_strings(result))
+    return jsonify({'wltest': extract_strings(result)})
+
+def rm_url(user,url):
+    useful_url = get_useful_url(url)
+    conn = dbconnect()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("BEGIN;")
+        cursor.execute(f"""
+                        DELETE FROM public."whiteList" WHERE user_id={user} AND whitelisted_url='{useful_url}'
+                        """)
+    except (Exception,Error) as error:
+        print(error)
+        return False
+    cursor.execute("COMMIT;")
+    cursor.close()
+    conn.close()
+    return True
+
+
 def check_phish(url, user, cursor):
     return 0
 
@@ -113,6 +211,7 @@ def check_phish(url, user, cursor):
 """
 if __name__ == "__main__": #purely for testing purposes, will not use in the final iteration
     app.run(port=5000)
+    #addwl("https://www.google.com",2)
     """
     c = dbconnect()
     url = "https://www.google.com"

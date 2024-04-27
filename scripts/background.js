@@ -4,6 +4,18 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({lastProtectionState: 'Not Protected'});
 });
 
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.sync.set({phishingNotification: 'enabled'});
+});
+
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.sync.set({safeNotification: 'enabled'});
+});
+
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.sync.set({wlNotification: 'enabled'});
+});
+
 
 chrome.tabs.onActivated.addListener(activeInfo => {
   activeTabId = activeInfo.tabId;

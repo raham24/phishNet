@@ -10,12 +10,21 @@
     <div class="container">
         <img id="logo" src="PhishNET.png" alt="Logo">
         <p class="title-wl">Whitelisting</p>
-        <div>
-            <label for="whitelist-inp" id="whitelist-label">Add websites:</label>
-            <input type="text" id="whitelist-inp" name="whitelist-inp" required>
-            <button id="submit-button">Submit</button>
-          </div>
-        <textarea id="url-list" readonly></textarea>
+          
+        <div class="wl-inp">
+            <label for="whitelist-inp" class="wl-textarea-label">Whitelist a Website</label>
+            <input type="text" id="whitelist-inp" name="whitelist-inp" placeholder="Paste full URL here" required>
+            <div id="top-container">
+              <button id="submit-button">Add</button>
+              <button id="remove-button">Remove</button>
+            </div>
+            
+        </div>
+        
+        <div class="textarea-container">
+            <label for="wl-list" class="textarea-label">Whitelisted Websites</label>
+            <textarea id="wl-list" readonly></textarea>
+        </div>
         <button id="back-button">Back</button>
     </div>
   <script src="scripts/wl.js"></script>

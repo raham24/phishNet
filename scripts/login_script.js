@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Attach click event listener to login button
-  document.getElementById('loginButton').addEventListener('click', function() {
+  document.getElementById('button-login').addEventListener('click', function() {
     // Get input values
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
