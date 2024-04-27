@@ -3,12 +3,56 @@ document.getElementById('back-button-stats').addEventListener('click', function(
 });
 
 document.addEventListener("DOMContentLoaded",showPieChart)
+document.addEventListener("DOMContentLoaded",updatestats())
+document.addEventListener("DOMContentLoaded",updatelist())
 
 
-let safe = 10;
-let phish = 1;
+function updatestats() {
+  let safe = 0;
+  let phish = 0;
+  let user = 1;
+  
+  fetch('http://localhost:5000/getsafe', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({user: user}),
+  })
+  .then(response => response.json())
+  .then(data => {
+      safe = data.safe;
+      phish = data.phish;
+      showPieChart(safe,phish);
+  })
+  .catch((error) => {
+      console.error('Error:', error);
+  });
 
-function showPieChart() {
+} 
+
+function updatelist() {
+  let user = 1;
+  fetch('http://localhost:5000/updatelist', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({user: user}),
+  })
+  .then(response => response.json())
+  .then(user => {
+      var wl = user.wltest;
+      var wlText = wl.join('\n');
+      document.getElementById('stat-list').value = wlText;
+  })
+  .catch((error) => {
+      console.error('Error:', error);
+  });
+}
+
+function showPieChart(safe,phish) {
+
   let sliceA={size: safe, color: "green"};
   let sliceB={size: phish, color: "red"};
 

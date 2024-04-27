@@ -27,9 +27,8 @@ function addwl(url) {
     return;
   }
 
-
-  console.log(url);
   let user = 2;
+  var addedUrl = '';
   fetch('http://localhost:5000/addwl', {
       method: 'POST',
       headers: {
@@ -39,14 +38,13 @@ function addwl(url) {
   })
   .then(response => response.json())
   .then(data => {
-      var addedUrl = data.addwl;
+      addedUrl = data.final;
+      alert(url + ' was added to the Whitelist');
+      updateWL();
   })
   .catch((error) => {
       console.error('Error:', error);
   });
-  console.log('URL added to whitelist:', url);
-  alert("URL whitelisted!");
-  updateWL();
 }
 
 function rmurl(url) {
@@ -63,7 +61,6 @@ function rmurl(url) {
   }
 
 
-  console.log(url);
   let user = 2;
   fetch('http://localhost:5000/rmwl', {
       method: 'POST',
@@ -74,18 +71,16 @@ function rmurl(url) {
   })
   .then(response => response.json())
   .then(data => {
-      var rmurl = data.rmwl;
+      var rmurl = data.final;
       if (!rmurl){
         alert('Error removing URL');
       }
-      alert(rmurl + ' was removed from the Whitelist');
-      console.log(data);
+      alert(url + ' was removed from the Whitelist');
+      updateWL();
   })
   .catch((error) => {
       console.error('Error:', error);
   });
-  console.log('URL removed from the whitelist:', url);
-  updateWL();
 }
 
 document.addEventListener("DOMContentLoaded",updateWL())
@@ -102,9 +97,6 @@ function updateWL() {
   .then(response => response.json())
   .then(user => {
       var wl = user.wltest;
-      wl.forEach(item => {
-          console.log(item); // item is a string
-      });
       var wlText = wl.join('\n');
       document.getElementById('wl-list').value = wlText;
   })

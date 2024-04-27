@@ -357,6 +357,7 @@ label {
     resize: none;
 }
 
+
 #wl-list {
     width: 90%;
     height: 100px;
@@ -398,6 +399,7 @@ label {
     text-align: center;
     margin-bottom: -10px; /* Adjust this value to move the label up or down */
 }
+
 
 .wl-inp {
     position: relative;

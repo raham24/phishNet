@@ -86,7 +86,7 @@ function checkURL(activeTabUrl) {
 function createNotification(message) {
     let options = {
         type: "basic",
-        iconUrl: "PhishNET.png", // replace with your icon
+        iconUrl: "PhishNET.png",
         title: "My Notification",
         message: message
     };

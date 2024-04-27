@@ -43,7 +43,8 @@ def addwl_route():
     user = data.get('user')
     if user is None:
         return {'error': 'No url provided'}, 400
-    return add_to_whitelist(user, url)
+    final = add_to_whitelist(user, url)
+    return {'final' : final}
 
 @app.route('/rmwl', methods=['POST'])
 def rmwl_route():
@@ -53,11 +54,28 @@ def rmwl_route():
     user = data.get('user')
     if user is None:
         return {'error': 'No url provided'}, 400
-    if not(rm_url(user, url)):
-        return jsonify("URL removed")
-    else:
-        return jsonify("Error removing URL")
+    result = rm_url(user, url)
+    return {'final' : result}
 
+@app.route('/getsafe', methods=['POST'])
+def getsafe_route():
+    print(request.data)
+    data = request.get_json()
+    user = data.get('user')
+    if user is None:
+        return {'error': 'No url provided'}, 400
+    resultsafe = get_safe(user)
+    resultphish = get_phish(user)
+    return {'safe' : resultsafe, 'phish' : resultphish}
+
+@app.route('/updatelist', methods=['POST'])
+def uplist():
+    print(request.data)
+    data = request.get_json()
+    user = data.get('user')
+    if user is None:
+        return {'error': 'No url provided'}, 400
+    return getstatlist(user)
 
 def pred(full_url, user):
     clf = joblib.load("rfc.pkl")
@@ -191,6 +209,54 @@ def rm_url(user,url):
     return True
 
 
+def get_safe(user):
+    conn = dbconnect()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("BEGIN;")
+        cursor.execute(f"""
+                        SELECT * FROM public."phishingAttempts" WHERE decision_tree_prediction=1 AND user_id={user} 
+                        """)
+    except (Exception,Error) as error:
+        print(error)
+        return False
+    result = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return len(result)
+
+def getstatlist(user):
+    conn = dbconnect()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("BEGIN;")
+        cursor.execute(f"""SELECT phishing_url FROM public."phishingAttempts" WHERE user_id={user}
+                        """)
+    except (Exception,Error) as error:
+        print(error)
+    result = cursor.fetchall()
+    cursor.close()
+    conn.close()  
+    print(extract_strings(result))
+    return jsonify({'wltest': extract_strings(result)})
+
+def get_phish(user):
+    conn = dbconnect()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("BEGIN;")
+        cursor.execute(f"""
+                        SELECT * FROM public."phishingAttempts" WHERE decision_tree_prediction=-1 AND user_id={user} 
+                        """)
+    except (Exception,Error) as error:
+        print(error)
+        return False
+    result = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return len(result)
+
+
 def check_phish(url, user, cursor):
     return 0
 
@@ -210,6 +276,7 @@ def check_phish(url, user, cursor):
         2. (Not implemented rn, need to work on it next week) user_id of the person who is logged in
 """
 if __name__ == "__main__": #purely for testing purposes, will not use in the final iteration
+    #print(get_safe(1))
     app.run(port=5000)
     #addwl("https://www.google.com",2)
     """
