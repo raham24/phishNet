@@ -458,7 +458,7 @@ label {
     font-size: 16pt;
 }
 
-#not1-button, #not2-button, #not3-button  {
+#not1button, #not2button, #not3button  {
     position: relative;
     display: inline-block;
     width: 60px;
@@ -468,7 +468,7 @@ label {
     margin: 0 10px;
 }
 
-#not1-button::after, #not2-button::after, #not3-button::after {
+#not1button::after, #not2button::after, #not3button::after {
     content: '';
     position: absolute;
     width: 26px;
@@ -480,11 +480,11 @@ label {
     transition: 0.2s;
 }
 
-#not1-button.checked, #not2-button.checked, #not3-button.checked {
+#not1button.checked, #not2button.checked, #not3button.checked {
     background-color: var(--protected-color);
 }
 
-#not1-button.checked::after, #not2-button.checked::after, #not3-button.checked::after {
+#not1button.checked::after, #not2button.checked::after, #not3button.checked::after {
     left: calc(100% - 30px);
 }
 

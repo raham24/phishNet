@@ -24,6 +24,7 @@ def predict():
     if url is None:
         return {'error': 'No url provided'}, 400
     prediction = predtest(url)
+    print(prediction)
     return {'prediction': prediction}
 
 @app.route('/test', methods=['POST'])

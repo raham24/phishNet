@@ -5,15 +5,15 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({phishingNotification: 'enabled'});
+  chrome.storage.sync.set({not1button: 'enabled'});
 });
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({safeNotification: 'enabled'});
+  chrome.storage.sync.set({not2button: 'enabled'});
 });
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({wlNotification: 'enabled'});
+  chrome.storage.sync.set({not3button: 'enabled'});
 });
 
 
@@ -76,7 +76,27 @@ function checkURL(activeTabUrl) {
     .then(response => response.json())
     .then(data => {
         let prediction = data.prediction;
-        createNotification(prediction);
+        if (prediction === "Website Whitelisted") {
+          chrome.storage.sync.get('not1button', function(data) {
+            if (data.not1button === "enabled") {
+              createNotification(prediction);
+            }
+          });
+        }
+        if (prediction === "Phishing Website") {
+          chrome.storage.sync.get('not2button', function(data) {
+            if (data.not2button === "enabled") {
+              createNotification(prediction);
+            }
+          });
+        }
+        if (prediction === "Safe Website") {
+          chrome.storage.sync.get('not3button', function(data) {
+            if (data.not3button === "enabled") {
+              createNotification(prediction);
+            }
+          });
+        }
     })
     .catch((error) => {
         console.error('Error:', error);
