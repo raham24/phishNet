@@ -64,7 +64,8 @@ function checkLastProtectionState() {
 
 function checkURL(activeTabUrl) {
 
-    let data = JSON.stringify({url: activeTabUrl});
+    let user_id = 2;
+    let data = JSON.stringify({url: activeTabUrl, user: user_id});
     console.log('Data:', data);  // Log the data
     fetch('http://localhost:5000/predict', {
         method: 'POST',

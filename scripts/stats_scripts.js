@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded",updatelist())
 function updatestats() {
   let safe = 0;
   let phish = 0;
-  let user = 1;
+  let user = 2;
   
   fetch('http://localhost:5000/getsafe', {
       method: 'POST',
@@ -32,7 +32,7 @@ function updatestats() {
 } 
 
 function updatelist() {
-  let user = 1;
+  let user = 2;
   fetch('http://localhost:5000/updatelist', {
       method: 'POST',
       headers: {

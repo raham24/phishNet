@@ -14,16 +14,18 @@ from flask_cors import CORS
 from flask import jsonify
 
 app = Flask(__name__)
-CORS(app)  # This will enable CORS for all routes
+CORS(app)  
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    print(request.data)  # Log the raw request data
+    print(request.data)  
     data = request.get_json()
     url = data.get('url')
+    user = data.get('user')
+    print(user,url)
     if url is None:
         return {'error': 'No url provided'}, 400
-    prediction = predtest(url)
+    prediction = pred(url,user)
     print(prediction)
     return {'prediction': prediction}
 
@@ -80,36 +82,24 @@ def uplist():
 
 def pred(full_url, user):
     clf = joblib.load("rfc.pkl")
-    conn = dbconnect()
-    cursor = conn.cursor()
     url = get_useful_url(full_url)
-    if (wlcheck(url, user, cursor)):
+    if (wlcheck(url, user)):
         return "Website Whitelisted"
-    elif (check(url, user, cursor)):
-        if (check_phish(url,user,cursor)):
+    elif (check(url, user)):
+        if (check_phish(url,user)):
             return "Phishing Website"
         else:
             return "Safe Website"
     else:
         df = parse.check_url(url)
         prediction = clf.predict(df)
+        add_pred(url,user,prediction[0])
         if (prediction == 1):
             return "Safe Website"
         elif (prediction == 0):
             return "Unsafe Website"
         else:
             return "Phishing Website"
-
-def predtest(url):
-    clf = joblib.load("rfc.pkl")
-    df = parse.check_url(url)
-    prediction = clf.predict(df)
-    if (prediction == 1):
-        return "Safe Website"
-    elif (prediction == 0):
-        return "Unsafe Website"
-    else:
-        return "Phishing Website"
 
     
 def get_useful_url(url):
@@ -125,8 +115,9 @@ def dbconnect():
     except (Exception, Error) as error:
         print("Error connecting to the database")
 
-def wlcheck(url, user, cursor):
-    
+def wlcheck(url, user):
+    conn = dbconnect()
+    cursor = conn.cursor()
     cursor.execute("BEGIN;")
     cursor.execute(
         f"""
@@ -136,14 +127,16 @@ def wlcheck(url, user, cursor):
     result = cursor.fetchone()[0]
     return result
 
-def check(url, user, cursor):
+def check(url, user):
+    conn = dbconnect()
+    cursor = conn.cursor()
     cursor.execute("BEGIN;")
     cursor.execute(
         f"""
-        SELECT EXISTS(SELECT 1 FROM public."whiteList" WHERE user_id={user} AND whitelisted_url='{url}' LIMIT 1)
-        """
-    )
-    return 0
+        SELECT EXISTS(SELECT 1 FROM public."phishingAttempts" WHERE user_id={user} AND phishing_url='{url}' LIMIT 1)
+    """)
+    reult = cursor.fetchone()[0]
+    return reult
 
 def check_if_exists(user,useful_url,cursor):
     try:
@@ -244,22 +237,42 @@ def getstatlist(user):
 def get_phish(user):
     conn = dbconnect()
     cursor = conn.cursor()
+    cursor.execute(
+        f"""
+        SELECT * FROM public."phishingAttempts" WHERE decision_tree_prediction=-1 AND user_id={user}
+    """)
+    reult = cursor.fetchone()[0]
+    return reult
+
+
+def check_phish(url, user):
+    conn = dbconnect()
+    cursor = conn.cursor()
+    cursor.execute("BEGIN;")
+    cursor.execute(
+        f"""
+        SELECT EXISTS(SELECT 1 FROM public."phishingAttempts" WHERE user_id={user} AND phishing_url='{url}' AND decision_tree_prediction = -1 LIMIT 1)
+    """)
+    reult = cursor.fetchone()[0]
+    return reult
+
+def add_pred(url,user,pred):
+    conn = dbconnect()
+    cursor = conn.cursor()
+    time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    cursor.execute("BEGIN;")
     try:
-        cursor.execute("BEGIN;")
-        cursor.execute(f"""
-                        SELECT * FROM public."phishingAttempts" WHERE decision_tree_prediction=-1 AND user_id={user} 
-                        """)
+        cursor.execute(
+            f"""
+            INSERT INTO public."phishingAttempts" ("timestamp", phishing_url, decision_tree_prediction, user_id)
+            VALUES ('{strftime("%Y-%m-%d %H:%M:%S", gmtime())}', '{url}', {pred}, {user})
+            """)
+        conn.commit()
     except (Exception,Error) as error:
         print(error)
-        return False
-    result = cursor.fetchall()
     cursor.close()
     conn.close()
-    return len(result)
-
-
-def check_phish(url, user, cursor):
-    return 0
+    return True
 
 
 """
@@ -276,19 +289,6 @@ def check_phish(url, user, cursor):
         1. URL of the website
         2. (Not implemented rn, need to work on it next week) user_id of the person who is logged in
 """
-if __name__ == "__main__": #purely for testing purposes, will not use in the final iteration
-    #print(get_safe(1))
+if __name__ == "__main__": 
+
     app.run(port=5000)
-    #addwl("https://www.google.com",2)
-    """
-    c = dbconnect()
-    url = "https://www.google.com"
-    print(urlparse(url).netloc)
-    print(wlcheck(url,1,c))
-    df = parse.check_url(url)
-    clf = joblib.load("rfc.pkl")
-    print(clf.predict(df))
-    print(get_useful_url("https://mail.google.com/mail/u/0/#inboxhttps://mail.google.com/mail/u/0/#inbox"))
-    connector = dbconnect()
-    insert_attempts(connector)
-"""
