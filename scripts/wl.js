@@ -26,25 +26,27 @@ function addwl(url) {
     alert('Invalid input. Please enter a URL in this format:\nhttps://www.google.com');
     return;
   }
-
-  let user = 2;
-  var addedUrl = '';
-  fetch('http://localhost:5000/addwl', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({user: user, url: url}),
-  })
-  .then(response => response.json())
-  .then(data => {
-      addedUrl = data.final;
-      alert(url + ' was added to the Whitelist');
-      updateWL();
-  })
-  .catch((error) => {
-      console.error('Error:', error);
+  chrome.storage.sync.get('user', function(data) {
+    let user = data.user;
+    var addedUrl = '';
+    fetch('http://localhost:5000/addwl', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({user: user, url: url}),
+    })
+    .then(response => response.json())
+    .then(data => {
+        addedUrl = data.final;
+        alert(url + ' was added to the Whitelist');
+        updateWL();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
   });
+  
 }
 
 function rmurl(url) {
@@ -61,47 +63,53 @@ function rmurl(url) {
   }
 
 
-  let user = 2;
-  fetch('http://localhost:5000/rmwl', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({user: user, url: url}),
-  })
-  .then(response => response.json())
-  .then(data => {
-      var rmurl = data.final;
-      if (!rmurl){
-        alert('Error removing URL');
-      }
-      alert(url + ' was removed from the Whitelist');
-      updateWL();
-  })
-  .catch((error) => {
-      console.error('Error:', error);
+  chrome.storage.sync.get ('user', function(data) {
+    
+    let user = data.user;
+    fetch('http://localhost:5000/rmwl', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({user: user, url: url}),
+    })
+    .then(response => response.json())
+    .then(data => {
+        var rmurl = data.final;
+        if (!rmurl){
+          alert('Error removing URL');
+        }
+        alert(url + ' was removed from the Whitelist');
+        updateWL();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
   });
 }
 
 document.addEventListener("DOMContentLoaded",updateWL())
 
 function updateWL() {
-  let user = 2;
-  fetch('http://localhost:5000/test', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({user: user}),
-  })
-  .then(response => response.json())
-  .then(user => {
-      var wl = user.wltest;
-      var wlText = wl.join('\n');
-      document.getElementById('wl-list').value = wlText;
-  })
-  .catch((error) => {
-      console.error('Error:', error);
+
+  chrome.storage.sync.get('user', function(data) {
+    let user = data.user;
+    fetch('http://localhost:5000/test', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({user: user}),
+    })
+    .then(response => response.json())
+    .then(user => {
+        var wl = user.wltest;
+        var wlText = wl.join('\n');
+        document.getElementById('wl-list').value = wlText;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
   });
 }
 

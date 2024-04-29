@@ -16,6 +16,10 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set({not3button: 'enabled'});
 });
 
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.sync.set({user: '1'});
+});
+
 
 chrome.tabs.onActivated.addListener(activeInfo => {
   activeTabId = activeInfo.tabId;
@@ -64,36 +68,38 @@ function checkLastProtectionState() {
 
 function checkURL(activeTabUrl) {
 
-    let user_id = 2;
-    let data = JSON.stringify({url: activeTabUrl, user: user_id});
-    console.log('Data:', data);  // Log the data
-    fetch('http://localhost:5000/predict', {
+  chrome.storage.sync.get('user', function(data) {
+      let user_id = data.user;
+      let Data = JSON.stringify({url: activeTabUrl, user: user_id});
+      console.log('Data:', Data);  // Log the data
+      console.log('User:', );  // Log the data
+      fetch('http://localhost:5000/predict', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: data,
+        body: Data,
     })
     .then(response => response.json())
-    .then(data => {
-        let prediction = data.prediction;
+    .then(Data => {
+        let prediction = Data.prediction;
         if (prediction === "Website Whitelisted") {
-          chrome.storage.sync.get('not1button', function(data) {
-            if (data.not1button === "enabled") {
+          chrome.storage.sync.get('not1button', function(Data) {
+            if (Data.not1button === "enabled") {
               createNotification(prediction);
             }
           });
         }
         if (prediction === "Phishing Website") {
-          chrome.storage.sync.get('not2button', function(data) {
-            if (data.not2button === "enabled") {
+          chrome.storage.sync.get('not2button', function(Data) {
+            if (Data.not2button === "enabled") {
               createNotification(prediction);
             }
           });
         }
         if (prediction === "Safe Website") {
-          chrome.storage.sync.get('not3button', function(data) {
-            if (data.not3button === "enabled") {
+          chrome.storage.sync.get('not3button', function(Data) {
+            if (Data.not3button === "enabled") {
               createNotification(prediction);
             }
           });
@@ -102,6 +108,8 @@ function checkURL(activeTabUrl) {
     .catch((error) => {
         console.error('Error:', error);
     });
+    });
+    
 }
 
 function createNotification(message) {

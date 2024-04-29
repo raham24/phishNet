@@ -8,46 +8,50 @@ document.addEventListener("DOMContentLoaded",updatelist())
 
 
 function updatestats() {
-  let safe = 0;
-  let phish = 0;
-  let user = 2;
-  
-  fetch('http://localhost:5000/getsafe', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({user: user}),
-  })
-  .then(response => response.json())
-  .then(data => {
-      safe = data.safe;
-      phish = data.phish;
-      showPieChart(safe,phish);
-  })
-  .catch((error) => {
-      console.error('Error:', error);
-  });
+  chrome.storage.sync.get('user', function(data) {
+    let user = data.user;
+    let safe = 0;
+    let phish = 0;
 
+    fetch('http://localhost:5000/getsafe', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({'user': user}),
+    })
+    .then(response => response.json())
+    .then(data => {
+        safe = data.safe;
+        phish = data.phish;
+        showPieChart(safe,phish);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+
+  });
 } 
 
 function updatelist() {
-  let user = 2;
-  fetch('http://localhost:5000/updatelist', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({user: user}),
-  })
-  .then(response => response.json())
-  .then(user => {
-      var wl = user.wltest;
-      var wlText = wl.join('\n');
-      document.getElementById('stat-list').value = wlText;
-  })
-  .catch((error) => {
-      console.error('Error:', error);
+  chrome.storage.sync.get('user', function(data) {
+    let user = data.user;
+    fetch('http://localhost:5000/updatelist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({user: user}),
+    })
+    .then(response => response.json())
+    .then(user => {
+        var wl = user.wltest;
+        var wlText = wl.join('\n');
+        document.getElementById('stat-list').value = wlText;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
   });
 }
 
