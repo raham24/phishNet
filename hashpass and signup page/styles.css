@@ -1,0 +1,548 @@
+:root {
+    --primary-color: #2196F3;
+    --secondary-color: #ccc;
+    --background-color: rgb(17, 25, 35);
+    --text-color: white;
+    --box-bg-color: #444;
+    --protected-color: green;
+    --not-protected-color: red;
+}
+
+body {
+    min-width: 300px;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color) ;
+    font-family: Helvetica, sans-serif;
+}
+
+#body-popup {
+    min-width: 300px;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color) ;
+    font-family: Helvetica, sans-serif;
+}
+
+#logo {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 85px; 
+    height: 85px; 
+}
+
+#logo-popup {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 95px; 
+    height: 95px; 
+}
+
+#protection-button {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    background-color: var(--secondary-color);
+    border-radius: 34px;
+    margin: 0 10px;
+}
+
+#protection-button::after {
+    content: '';
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+#protection-button.checked {
+    background-color: var(--protected-color);
+}
+
+#protection-button.checked::after {
+    left: calc(100% - 30px);
+}
+
+.container {
+    text-align: center;
+}
+
+
+.title {
+    margin-top: 8px;
+    font-size: 19pt;
+}
+
+.title-wl {
+    text-align: center;
+    margin-top: 15px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+    font-size: 16pt;
+}
+.controls {
+    margin-top: 20px;
+    margin-bottom: -30px;
+}
+
+.controls:first-child {
+    text-align: center;
+}
+
+.controls:last-child {
+    text-align: center;
+}
+
+.status {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px 0;
+    transition: background-color 0.2s;
+    position: center;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+}
+
+button:hover, a:hover {
+    background-color: #0079d3;
+}
+
+#protection-button {
+    color: var(--protected-color);
+}
+
+.controls {
+    margin-top: 2rem;
+}
+
+#pie-chart {
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
+}
+
+#url-list {
+    width: 90%;
+    height: 100px;
+    margin-top: 15px;
+    background-color: var(--box-bg-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+#whitelist-inp {
+    width: 90%;
+    height: 35px;
+    margin-top: 5px;
+    background-color: var(--box-bg-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+#whitelist-label {
+    padding-left: 3px;
+}
+
+#submit-button,#remove-button {
+    position: relative;
+    top: 0px;
+    width: 100px; 
+    height: 30px; 
+    font-size: 14px; 
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
+
+#submit-button:hover, #remove-button:hover {
+    background-color: #0079d3
+}
+
+#back-button {
+    width: 100px;
+    height: 30px;
+    margin: 20px auto;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#back-button:hover {
+    background-color: #0079d3
+}
+
+
+.container-login {
+    width: 300px auto;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#button-login, #button-signup {
+    width: 45%; 
+    height: 30px; 
+    font-size: 12px; 
+}
+
+
+
+button-signup:hover {
+    background-color: #0056b3;
+}
+
+button-login:hover {
+    background-color: #0056b3;
+}
+
+
+.remember-me-login {
+    display: flex;
+    align-items: center;
+    
+    margin-bottom: 15px;
+}
+
+
+body-login {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background-color: var(--box-bg-color);
+    color: var(--text-color);
+}
+
+label {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 10pt; 
+}
+
+#username,#password {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.title-login {
+    text-align: center;
+    margin-top: 15px;
+    padding-bottom: 25px;
+    font-size: 19pt;
+    padding-bottom: 10px;
+}
+
+#top-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0;
+}
+
+#logout-button, #settings-button {
+    position: relative;
+    top: 0px;
+    width: 100px; 
+    height: 50px; 
+    font-size: 14px; 
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#logout-button:hover, #settings-button:hover {
+    background-color: #0079d3
+}
+
+#logout-button:hover::after {
+    content: 'Click to logout';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    padding-top: 5px;
+    white-space: nowrap; 
+}
+
+body-signup {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background-color: var(--box-bg-color);
+    color: var(--text-color);
+}
+
+.title-signup {
+    text-align: center;
+    margin-top: 15px;
+    padding-bottom: 25px;
+    font-size: 19pt;
+    padding-bottom: 10px;
+}
+label {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 10pt; 
+}
+
+
+#top-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0;
+}
+
+#email {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#settings-button:hover::after {
+    content: 'Personalize';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    padding-top: 5px;
+    white-space: nowrap; 
+}
+
+
+.pie-chart-container {
+    padding-top: 80px;
+}
+
+#stat-list {
+    width: 90%;
+    height: 100px;
+    margin-top: 15px;
+    background-color: var(--box-bg-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+#wl-list {
+    width: 90%;
+    height: 100px;
+    margin-top: 15px;
+    background-color: var(--box-bg-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+
+#back-button-stats {
+    width: 50%;
+    height: 30px;
+    margin: 20px auto;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#back-button-stats:hover {
+    background-color: #0079d3
+}
+
+.textarea-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.textarea-label {
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: -10px; /* Adjust this value to move the label up or down */
+}
+
+.wl-inp {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 252px;
+    margin-bottom: 15px;
+}
+
+.wl-textarea-label {
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-left: 2px;
+}
+
+
+.stat-label {
+    position: absolute;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    color: var(--text-color);
+    padding-bottom: 20px;
+}
+
+.pie-chart-container {
+    padding-top: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#legend {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 13pt;
+    margin-left: -15px;
+}
+
+.title-stats {
+    text-align: center;
+    margin-top: 16px;
+    padding-top: 25px;
+    font-size: 16pt;
+}
+
+.title-popup {
+    text-align: center;
+    margin-top: 16px;
+
+    font-size: 16pt;
+}
+
+#not1-button, #not2-button, #not3-button  {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    background-color: var(--secondary-color);
+    border-radius: 34px;
+    margin: 0 10px;
+}
+
+#not1-button::after, #not2-button::after, #not3-button::after {
+    content: '';
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+#not1-button.checked, #not2-button.checked, #not3-button.checked {
+    background-color: var(--protected-color);
+}
+
+#not1-button.checked::after, #not2-button.checked::after, #not3-button.checked::after {
+    left: calc(100% - 30px);
+}
+
+
+.setting-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.setting1-text,.setting2-text,.setting3-text {
+    font-size: 14px;
+}
+
