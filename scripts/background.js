@@ -17,7 +17,7 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({user: '1'});
+  chrome.storage.sync.set({user: '0'});
 });
 
 

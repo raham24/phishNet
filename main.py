@@ -12,6 +12,7 @@ from time import gmtime, strftime
 from flask import Flask, request
 from flask_cors import CORS
 from flask import jsonify
+import loginpage as lp
 
 app = Flask(__name__)
 CORS(app)  
@@ -69,6 +70,8 @@ def getsafe_route():
         return {'error': 'No url provided'}, 400
     resultsafe = get_safe(user)
     resultphish = get_phish(user)
+    print(resultphish)
+    print(resultsafe)
     return {'safe' : resultsafe, 'phish' : resultphish}
 
 @app.route('/updatelist', methods=['POST'])
@@ -79,6 +82,18 @@ def uplist():
     if user is None:
         return {'error': 'No url provided'}, 400
     return getstatlist(user)
+
+@app.route('/login', methods=['POST'])
+def login_route():
+    print(request.data)
+    data = request.get_json()
+    user = data.get('user')
+    password = data.get('password')
+    print(user)
+    print(password)
+    result = lp.authenticate_user(user,password)
+    print(result)
+    return {'result' : result}
 
 def pred(full_url, user):
     clf = joblib.load("rfc.pkl")
@@ -241,8 +256,8 @@ def get_phish(user):
         f"""
         SELECT * FROM public."phishingAttempts" WHERE decision_tree_prediction=-1 AND user_id={user}
     """)
-    reult = cursor.fetchone()[0]
-    return reult
+    result = cursor.fetchall()
+    return len(result)
 
 
 def check_phish(url, user):
